@@ -1,1 +1,0 @@
-DELETE from etudiant WHERE nom="John" prenom "Doe"
