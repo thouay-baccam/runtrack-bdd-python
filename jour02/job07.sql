@@ -8,7 +8,6 @@ CREATE TABLE IF NOT EXISTS employe (
     prenom VARCHAR(255) NOT NULL,
     salaire DECIMAL(10, 2) NOT NULL,
     id_service INT,
-    FOREIGN KEY (id_service) REFERENCES service(id)
 );
 
 CREATE TABLE IF NOT EXISTS service (
