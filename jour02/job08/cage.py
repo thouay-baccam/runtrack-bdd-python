@@ -1,11 +1,15 @@
 class Cage:
-    def __init__(self, size, max_capacity):
-        self.size = size
-        self.max_capacity = max_capacity
+    def __init__(self, superficie, capacite_max):
+        self.superficie = superficie
+        self.capacite_max = capacite_max
 
     def save(self, db):
-        query = "INSERT INTO cage (size, max_capacity) VALUES (%s, %s)"
-        db.execute_query(query, (self.size, self.max_capacity))
+        query = "INSERT INTO cage (superficie, capacite_max) VALUES (%s, %s)"
+        db.execute_query(query, (self.superficie, self.capacite_max))
+
+    def update(self, db, id_cage):
+        query = "UPDATE cage SET superficie = %s, capacite_max = %s WHERE id = %s"
+        db.execute_query(query, (self.superficie, self.capacite_max, id_cage))
 
     def delete(db, cage_id):
         db.execute_query("DELETE FROM cage WHERE id = %s", (cage_id,))

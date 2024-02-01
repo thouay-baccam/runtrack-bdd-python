@@ -1,23 +1,28 @@
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET SQL_NOTES=0 */;
 
 CREATE DATABASE IF NOT EXISTS lethalcompany;
 USE lethalcompany;
+DROP TABLE IF EXISTS service;
+CREATE TABLE `service` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nom` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+DROP TABLE IF EXISTS employe;
+CREATE TABLE `employe` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nom` varchar(255) NOT NULL,
+  `prenom` varchar(255) NOT NULL,
+  `salaire` decimal(10,2) NOT NULL,
+  `id_service` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_service` (`id_service`),
+  CONSTRAINT `employe_ibfk_1` FOREIGN KEY (`id_service`) REFERENCES `service` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE IF NOT EXISTS employe (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nom VARCHAR(255) NOT NULL,
-    prenom VARCHAR(255) NOT NULL,
-    salaire DECIMAL(10, 2) NOT NULL,
-    id_service INT,
-);
 
-CREATE TABLE IF NOT EXISTS service (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nom VARCHAR(255) NOT NULL
-);
-
-INSERT INTO service (nom) VALUES ('Cybersecurité'), ('Web Dev'), ('Fullstack Dev');
-
-INSERT INTO employe (nom, prenom, salaire, id_service) VALUES 
-('Baccam', 'Teddy', 3200.00, (SELECT id FROM service WHERE nom = 'Cybersecurité')),
-('Baccam', 'Théo', 2900.00, (SELECT id FROM service WHERE nom = 'Web Dev')),
-('Attias', 'Raphael', 3050.00, (SELECT id FROM service WHERE nom = 'Fullstack Dev'));
+INSERT INTO service(id,nom) VALUES (1,'Cybersecurité'), (2,'Web Dev'), (3,'Fullstack Dev');
+INSERT INTO employe (id, nom, prenom, salaire, id_service) VALUES (1,'Baccam','Teddy',3200.00,1), (2,'Clavis','Tom',2900.00,2), (3,'Attias','Raphael',3050.00,3);
